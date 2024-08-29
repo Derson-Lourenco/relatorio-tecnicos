@@ -4,12 +4,13 @@ import RelatorioContext from '../context/Contexto';
 
 const SelecionarServico = () => {
   const [servicos] = useState([
-    'Ativação', 
-    'Mudança de Endereço',
-    'Mudança de Media de Acesso',
-    'Ativação Virtex Tv c/ Box',
-    'Ativação Virtex Tv s/ Box',
-    'Suporte'
+    { nome: 'AT', peso: 2, pontos: 1 },
+    { nome: 'ME', peso: 2, pontos: 1 },
+    { nome: 'MMA', peso: 2, pontos: 1 },
+    { nome: 'AT Virtex Tv c/ Box', peso: 3, pontos: 4 },
+    { nome: 'AT Virtex Tv s/ Box', peso: 2, pontos: 3 },
+    { nome: 'Suporte', peso: 1, pontos: 1 },
+    { nome: 'DES. PORTA', peso: 0.25, pontos: 0.25 }
   ]);
   const [quantidade, setQuantidade] = useState(1);
   const [justificativa, setJustificativa] = useState('');
@@ -21,7 +22,14 @@ const SelecionarServico = () => {
 
   const adicionarServico = () => {
     if (servicoAtual && quantidade > 0) {
-      const novoServico = { nome: servicoAtual, quantidade, justificativa };
+      const servicoDetalhado = servicos.find(s => s.nome === servicoAtual);
+      const novoServico = {
+        nome: servicoAtual,
+        quantidade,
+        justificativa,
+        peso: servicoDetalhado.peso,
+        pontos: servicoDetalhado.pontos
+      };
       setServicosSelecionados([...servicosSelecionados, novoServico]);
       setQuantidade(1);
       setJustificativa('');
@@ -49,8 +57,8 @@ const SelecionarServico = () => {
       <h2>Selecionar Serviço</h2>
       <select value={servicoAtual} onChange={(e) => setServicoAtual(e.target.value)}>
         {servicos.map((servico, index) => (
-          <option key={index} value={servico}>
-            {servico}
+          <option key={index} value={servico.nome}>
+            {servico.nome}
           </option>
         ))}
       </select>
@@ -76,7 +84,7 @@ const SelecionarServico = () => {
         <ul>
           {servicosSelecionados.map((servico, index) => (
             <li key={index}>
-              {servico.nome} - Quantidade: {servico.quantidade} - Justificativa: {servico.justificativa}
+              {servico.nome} - Quantidade: {servico.quantidade} - Justificativa: {servico.justificativa} - Peso: {servico.peso} - Pontos: {servico.pontos}
             </li>
           ))}
         </ul>
