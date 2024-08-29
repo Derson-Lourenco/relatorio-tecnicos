@@ -49,21 +49,28 @@ const Finalizar = () => {
       <p><strong>Técnico Interno:</strong> {tecnicoInterno}</p>
       <p><strong>Data:</strong> {data}</p>
       <p><strong>Técnico:</strong> {tecnico}</p>
-      <h3>Serviços Adicionados:</h3>
-      <ul>
+      <h3>Serviços:</h3>
+      <div>
         {servicos && servicos.length > 0 ? (
           servicos.map((servico, index) => (
-            <li key={index}>
-              {servico.nome} - Quantidade: {servico.quantidade} - Justificativa: {servico.justificativa} - Peso: {servico.peso} - Pontos: {servico.pontos}
-            </li>
+            <p key={index}>
+              <p>
+                {servico.nome}: {servico.quantidade}
+              </p>
+              <p>
+                Justificativa: {servico.justificativa}
+              </p>
+                TOTAL DE PESO: {servico.peso} <br />
+                TOTAL DE SERVIÇOS: {servico.pontos}
+            </p>
           ))
         ) : (
           <li>Nenhum serviço adicionado.</li>
         )}
-      </ul>
-      <h3>Totais:</h3>
+      </div>
+      {/* <h3>Totais:</h3>
       <p><strong>Total de Pontos:</strong> {totais.pontos}</p>
-      <p><strong>Total de Peso:</strong> {totais.peso}</p>
+      <p><strong>Total de Peso:</strong> {totais.peso}</p> */}
       <button onClick={finalizar}>Enviar para Telegram</button>
       <button onClick={adicionarOutro}>Adicionar Outro Técnico</button>
       <button onClick={verRelatorioCompleto}>Ver Relatório Completo</button>
